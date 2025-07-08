@@ -1,0 +1,92 @@
+# ===============================
+# 🔧 Miscellaneous
+# ===============================
+*.class
+*.log
+*.pyc
+*.swp
+*.tmp
+*.lock
+.DS_Store
+.atom/
+.build/
+.buildlog/
+.history
+.svn/
+.swiftpm/
+migrate_working_dir/
+
+# ===============================
+# 💡 IntelliJ / Android Studio
+# ===============================
+*.iml
+*.ipr
+*.iws
+.idea/
+
+# ===============================
+# 💻 VS Code
+# ===============================
+.vscode/
+
+# ===============================
+# 🐦 Flutter/Dart/Pub
+# ===============================
+.dart_tool/
+.flutter-plugins
+.flutter-plugins-dependencies
+.packages
+.pub/
+.pub-cache/
+build/
+coverage/
+pubspec.lock
+
+# Flutter API docs
+doc/api/
+
+# Flutter build ID
+ios/Flutter/.last_build_id
+
+# Flutter generated symbols / map
+app.*.symbols
+app.*.map.json
+
+# ===============================
+# 🤖 Android
+# ===============================
+android/.gradle/
+android/app/build/
+android/app/debug/
+android/app/profile/
+android/app/release/
+*.apk
+*.aab
+
+# ===============================
+# 🍏 iOS & macOS
+# ===============================
+ios/Pods/
+ios/.symlinks/
+ios/Flutter/
+macos/Flutter/
+macos/Pods/
+
+# ===============================
+# 💻 Windows/Linux
+# ===============================
+windows/flutter/
+linux/flutter/
+
+# ===============================
+# 🌐 Web
+# ===============================
+web/.dart_tool/
+
+# ===============================
+# 🔒 Private Keys / Sensitive
+# ===============================
+*.jks
+key.properties
+google-services.json
+firebase_options.dart
