@@ -1,3 +1,5 @@
+// lib/src/features/game_detail/game_detail_screen.dart
+
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:sakupay/src/data/models/game_model.dart';
@@ -18,16 +20,41 @@ class _GameDetailScreenState extends State<GameDetailScreen> {
   final FirestoreService _firestoreService = FirestoreService();
   final TextEditingController _userIdController = TextEditingController();
 
-  @override
-  void initState() {
-    super.initState();
-    print('--- GameDetailScreen initState ---');
-    print('Game ID received: ${widget.gameId}');
+  // ✅ PERBAIKAN DIALOG DENGAN SCROLL
+  void _showHelpDialog(String imageUrl) {
+    showDialog(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Cara Menemukan User ID'),
+        content: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Image.network(
+                imageUrl,
+                loadingBuilder: (context, child, loadingProgress) {
+                  if (loadingProgress == null) return child;
+                  return const Center(child: CircularProgressIndicator());
+                },
+                errorBuilder: (context, error, stackTrace) {
+                  return const Text('Gagal memuat gambar petunjuk.');
+                },
+              ),
+            ],
+          ),
+        ),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.pop(context),
+            child: const Text('Tutup'),
+          ),
+        ],
+      ),
+    );
   }
 
   @override
   Widget build(BuildContext context) {
-    print('--- GameDetailScreen build ---');
     final currencyFormatter = NumberFormat.currency(
       locale: 'id_ID',
       symbol: 'Rp ',
@@ -44,13 +71,13 @@ class _GameDetailScreenState extends State<GameDetailScreen> {
         }
 
         if (snapshot.hasError || !snapshot.hasData) {
-          print('Error loading game details: ${snapshot.error}');
           return const Scaffold(
             body: Center(child: Text('Gagal memuat data game.')),
           );
         }
 
         final game = snapshot.data!;
+        final bool hasHelpImage = game.userIdHelpImageUrl.isNotEmpty;
 
         return Scaffold(
           appBar: AppBar(
@@ -83,10 +110,18 @@ class _GameDetailScreenState extends State<GameDetailScreen> {
                       const SizedBox(height: 12),
                       TextField(
                         controller: _userIdController,
-                        decoration: const InputDecoration(
-                          border: OutlineInputBorder(),
+                        decoration: InputDecoration(
+                          border: const OutlineInputBorder(),
                           labelText: 'User ID',
                           hintText: 'Contoh: 12345678',
+                          suffixIcon: hasHelpImage
+                              ? IconButton(
+                                  icon: Icon(Icons.help_outline,
+                                      color: Theme.of(context).primaryColor),
+                                  onPressed: () =>
+                                      _showHelpDialog(game.userIdHelpImageUrl),
+                                )
+                              : null,
                         ),
                         keyboardType: TextInputType.number,
                       ),
@@ -110,18 +145,6 @@ class _GameDetailScreenState extends State<GameDetailScreen> {
                       StreamBuilder<List<TopUpItem>>(
                         stream: _firestoreService.getTopUpItems(widget.gameId),
                         builder: (context, itemSnapshot) {
-                          print(
-                              'TopUp Items StreamBuilder state: ${itemSnapshot.connectionState}');
-                          if (itemSnapshot.hasError) {
-                            print('TopUp Items Error: ${itemSnapshot.error}');
-                          }
-                          if (itemSnapshot.hasData) {
-                            print(
-                                'TopUp Items count: ${itemSnapshot.data!.length}');
-                            print(
-                                'Raw data received: ${itemSnapshot.data!.map((e) => '${e.itemName} (${e.price})').join(', ')}');
-                          }
-
                           if (itemSnapshot.connectionState ==
                               ConnectionState.waiting) {
                             return const Center(
@@ -145,7 +168,7 @@ class _GameDetailScreenState extends State<GameDetailScreen> {
                               crossAxisCount: 2,
                               crossAxisSpacing: 12,
                               mainAxisSpacing: 12,
-                              childAspectRatio: 2.5,
+                              childAspectRatio: 1.9,
                             ),
                             itemCount: items.length,
                             itemBuilder: (context, index) {

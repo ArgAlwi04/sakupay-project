@@ -67,8 +67,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
               ),
               const SizedBox(height: 30),
-
-              // Nama Lengkap
               TextField(
                 controller: _fullNameController,
                 decoration: const InputDecoration(
@@ -77,8 +75,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 ),
               ),
               const SizedBox(height: 16),
-
-              // No. Telepon
               TextField(
                 controller: _phoneController,
                 decoration: const InputDecoration(
@@ -88,8 +84,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 keyboardType: TextInputType.phone,
               ),
               const SizedBox(height: 16),
-
-              // Email
               TextField(
                 controller: _emailController,
                 decoration: const InputDecoration(
@@ -99,8 +93,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 keyboardType: TextInputType.emailAddress,
               ),
               const SizedBox(height: 16),
-
-              // Password
               TextField(
                 controller: _passwordController,
                 decoration: const InputDecoration(
@@ -110,8 +102,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 obscureText: true,
               ),
               const SizedBox(height: 16),
-
-              // Konfirmasi Password
               TextField(
                 controller: _confirmPasswordController,
                 decoration: const InputDecoration(
@@ -121,8 +111,6 @@ class _RegisterScreenState extends State<RegisterScreen> {
                 obscureText: true,
               ),
               const SizedBox(height: 24),
-
-              // Tombol Daftar
               _isLoading
                   ? const CircularProgressIndicator()
                   : SizedBox(
@@ -131,15 +119,11 @@ class _RegisterScreenState extends State<RegisterScreen> {
                         onPressed: _register,
                         style: ElevatedButton.styleFrom(
                           padding: const EdgeInsets.symmetric(vertical: 16),
-                          backgroundColor: Colors.pink,
-                          foregroundColor: Colors.white,
                         ),
                         child: const Text('Daftar'),
                       ),
                     ),
               const SizedBox(height: 16),
-
-              // Navigasi ke Login
               TextButton(
                 onPressed: () => Navigator.of(context).pop(),
                 child: const Text('Sudah punya akun? Login'),

@@ -20,15 +20,14 @@ class GameCard extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Gambar game dengan border radius dan background putih
           Expanded(
             child: ClipRRect(
               borderRadius: BorderRadius.circular(12.0),
               child: Container(
-                color: Colors.white, // Latar belakang putih
+                color: Colors.white,
                 child: Image.network(
                   game.imageUrl,
-                  fit: BoxFit.contain, // Menyesuaikan gambar dalam kotak
+                  fit: BoxFit.contain,
                   width: double.infinity,
                   loadingBuilder: (context, child, loadingProgress) {
                     if (loadingProgress == null) return child;
@@ -46,7 +45,6 @@ class GameCard extends StatelessWidget {
               ),
             ),
           ),
-          // Judul Game
           Padding(
             padding: const EdgeInsets.only(top: 8.0),
             child: Text(
@@ -56,7 +54,6 @@ class GameCard extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
             ),
           ),
-          // Kategori Game
           Text(
             game.category,
             style: TextStyle(fontSize: 12, color: Colors.grey[600]),

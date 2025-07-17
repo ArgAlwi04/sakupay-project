@@ -49,13 +49,13 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   void _forgotPassword() {
-    final _resetEmailController = TextEditingController();
+    final resetEmailController = TextEditingController();
     showDialog(
       context: context,
       builder: (context) => AlertDialog(
         title: const Text('Reset Password'),
         content: TextField(
-          controller: _resetEmailController,
+          controller: resetEmailController,
           decoration: const InputDecoration(hintText: "Masukkan email Anda"),
         ),
         actions: [
@@ -67,7 +67,7 @@ class _LoginScreenState extends State<LoginScreen> {
             onPressed: () async {
               try {
                 await _authService.sendPasswordResetEmail(
-                  email: _resetEmailController.text.trim(),
+                  email: resetEmailController.text.trim(),
                 );
                 Navigator.pop(context);
                 ScaffoldMessenger.of(context).showSnackBar(
@@ -103,7 +103,7 @@ class _LoginScreenState extends State<LoginScreen> {
               const Text('Selamat Datang di SakuPay',
                   style: TextStyle(fontSize: 22, fontWeight: FontWeight.bold)),
               const SizedBox(height: 10),
-              Text('Login untuk melanjutkan',
+              const Text('Login untuk melanjutkan',
                   style: TextStyle(fontSize: 16, color: Colors.grey)),
               const SizedBox(height: 40),
               TextField(

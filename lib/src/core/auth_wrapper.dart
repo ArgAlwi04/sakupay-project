@@ -2,7 +2,7 @@
 
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:sakupay/src/core/main_screen.dart'; // <-- Ganti ke MainScreen
+import 'package:sakupay/src/core/main_screen.dart';
 import 'package:sakupay/src/features/auth/login_screen.dart';
 
 class AuthWrapper extends StatelessWidget {
@@ -18,7 +18,7 @@ class AuthWrapper extends StatelessWidget {
               body: Center(child: CircularProgressIndicator()));
         }
         if (snapshot.hasData) {
-          return const MainScreen(); // <-- Arahkan ke MainScreen
+          return const MainScreen();
         }
         return const LoginScreen();
       },

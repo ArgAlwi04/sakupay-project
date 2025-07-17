@@ -7,12 +7,14 @@ class TopUpItem {
   final String itemName;
   final int price;
   final String itemImageUrl;
+  final String itemType;
 
   TopUpItem({
     required this.id,
     required this.itemName,
     required this.price,
     required this.itemImageUrl,
+    required this.itemType,
   });
 
   factory TopUpItem.fromFirestore(DocumentSnapshot doc) {
@@ -22,6 +24,7 @@ class TopUpItem {
       itemName: data['itemName'] ?? '',
       price: data['price'] ?? 0,
       itemImageUrl: data['itemImageUrl'] ?? '',
+      itemType: data['itemType'] ?? '',
     );
   }
 }

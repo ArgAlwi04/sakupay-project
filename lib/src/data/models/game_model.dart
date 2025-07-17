@@ -7,12 +7,14 @@ class Game {
   final String name;
   final String category;
   final String imageUrl;
+  final String userIdHelpImageUrl; // <-- Field baru ditambahkan
 
   Game({
     required this.id,
     required this.name,
     required this.category,
     required this.imageUrl,
+    required this.userIdHelpImageUrl, // <-- Field baru ditambahkan
   });
 
   factory Game.fromFirestore(DocumentSnapshot doc) {
@@ -22,6 +24,8 @@ class Game {
       name: data['name'] ?? '',
       category: data['category'] ?? '',
       imageUrl: data['imageUrl'] ?? '',
+      userIdHelpImageUrl:
+          data['userIdHelpImageUrl'] ?? '', // <-- Field baru ditambahkan
     );
   }
 }

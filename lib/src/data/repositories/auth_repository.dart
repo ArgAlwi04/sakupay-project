@@ -41,6 +41,7 @@ class AuthService {
           'phoneNumber': phoneNumber,
           'email': email,
           'createdAt': FieldValue.serverTimestamp(),
+          'balance': 0, // <-- TAMBAHKAN BARIS INI
         });
       }
     } on FirebaseAuthException catch (e) {

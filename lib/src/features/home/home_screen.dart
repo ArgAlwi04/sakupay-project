@@ -5,6 +5,7 @@ import 'package:flutter_staggered_animations/flutter_staggered_animations.dart';
 import 'package:sakupay/src/data/models/game_model.dart';
 import 'package:sakupay/src/data/repositories/firestore_repository.dart';
 import 'package:sakupay/src/features/home/widgets/game_card.dart';
+// Import untuk ChatScreen sudah tidak diperlukan di sini lagi
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -18,13 +19,11 @@ class _HomeScreenState extends State<HomeScreen> {
   String _searchQuery = '';
   String? _selectedCategory;
 
-  // Daftar kategori (bisa juga diambil dari Firestore nanti)
   final List<String> _categories = [
     'All',
     'MOBA',
     'Battle Royale',
-    'Open World',
-    'FPS'
+    'Open World'
   ];
 
   @override
@@ -34,6 +33,7 @@ class _HomeScreenState extends State<HomeScreen> {
         title: Image.asset('assets/logo_sakupay.png', height: 32),
         backgroundColor: Theme.of(context).scaffoldBackgroundColor,
         elevation: 0,
+        // Bagian 'actions' untuk tombol chat sudah dihapus dari sini
       ),
       body: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) {
@@ -44,7 +44,6 @@ class _HomeScreenState extends State<HomeScreen> {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    // Kolom Pencarian
                     TextField(
                       onChanged: (value) {
                         setState(() {
@@ -63,7 +62,6 @@ class _HomeScreenState extends State<HomeScreen> {
                       ),
                     ),
                     const SizedBox(height: 16),
-                    // Daftar Kategori
                     SizedBox(
                       height: 40,
                       child: ListView.builder(
@@ -127,7 +125,6 @@ class _HomeScreenState extends State<HomeScreen> {
               return const Center(child: Text('Belum ada game yang tersedia.'));
             }
 
-            // Logika untuk filter dan pencarian
             List<Game> filteredGames = snapshot.data!;
             if (_searchQuery.isNotEmpty) {
               filteredGames = filteredGames

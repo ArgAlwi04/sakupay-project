@@ -1,4 +1,4 @@
-package com.example.sakupay
+package com.arga.sakupay
 
 import io.flutter.embedding.android.FlutterActivity
 

@@ -1,5 +1,8 @@
+// lib/src/features/profile/profile_screen.dart
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart'; // <-- Import intl untuk format mata uang
 import 'package:sakupay/src/data/repositories/auth_repository.dart';
 import 'package:sakupay/src/data/repositories/firestore_repository.dart';
 import 'package:sakupay/src/data/models/user_model.dart';
@@ -19,10 +22,13 @@ class _ProfileScreenState extends State<ProfileScreen> {
 
   @override
   Widget build(BuildContext context) {
+    // Formatter untuk mata uang
+    final currencyFormatter =
+        NumberFormat.currency(locale: 'id_ID', symbol: 'Rp ', decimalDigits: 0);
+
     return Scaffold(
       appBar: AppBar(
         title: const Text('Profil Saya'),
-        backgroundColor: Colors.pink,
       ),
       body: user == null
           ? const Center(child: Text('User tidak ditemukan'))
@@ -41,6 +47,7 @@ class _ProfileScreenState extends State<ProfileScreen> {
                 return ListView(
                   padding: const EdgeInsets.all(16.0),
                   children: [
+                    // --- Bagian Info Profil ---
                     CircleAvatar(
                       radius: 50,
                       backgroundColor: Colors.pink.shade100,
@@ -73,7 +80,46 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       textAlign: TextAlign.center,
                       style: const TextStyle(color: Colors.grey),
                     ),
-                    const SizedBox(height: 30),
+                    const SizedBox(height: 24),
+
+                    // --- WIDGET BARU UNTUK SALDO ---
+                    Card(
+                      color: Theme.of(context).primaryColor.withOpacity(0.05),
+                      elevation: 0,
+                      shape: RoundedRectangleBorder(
+                        side: BorderSide(
+                          color:
+                              Theme.of(context).primaryColor.withOpacity(0.3),
+                        ),
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: Padding(
+                        padding: const EdgeInsets.all(16.0),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              'Saldo SakuPay',
+                              style: TextStyle(
+                                  color: Colors.grey.shade700, fontSize: 16),
+                            ),
+                            const SizedBox(height: 8),
+                            Text(
+                              currencyFormatter.format(userData.balance),
+                              style: const TextStyle(
+                                fontSize: 28,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    ),
+                    // --- AKHIR DARI WIDGET BARU ---
+
+                    const SizedBox(height: 16),
+
+                    // --- Bagian Menu ---
                     ListTile(
                       leading: const Icon(Icons.history),
                       title: const Text('Riwayat Transaksi'),
@@ -95,8 +141,6 @@ class _ProfileScreenState extends State<ProfileScreen> {
                       ),
                       onTap: () async {
                         await authService.signOut();
-                        Navigator.of(context)
-                            .popUntil((route) => route.isFirst);
                       },
                     ),
                   ],

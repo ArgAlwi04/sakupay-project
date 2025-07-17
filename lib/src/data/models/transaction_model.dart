@@ -8,6 +8,8 @@ class TransactionModel {
   final String itemName;
   final int price;
   final Timestamp createdAt;
+  final String userId;
+  final String paymentMethod; // <-- Field baru
 
   TransactionModel({
     required this.id,
@@ -15,6 +17,8 @@ class TransactionModel {
     required this.itemName,
     required this.price,
     required this.createdAt,
+    required this.userId,
+    required this.paymentMethod, // <-- Field baru
   });
 
   factory TransactionModel.fromFirestore(DocumentSnapshot doc) {
@@ -25,6 +29,8 @@ class TransactionModel {
       itemName: data['itemName'] ?? 'N/A',
       price: data['price'] ?? 0,
       createdAt: data['createdAt'] ?? Timestamp.now(),
+      userId: data['userId'] ?? 'N/A',
+      paymentMethod: data['paymentMethod'] ?? 'N/A', // <-- Field baru
     );
   }
 }
